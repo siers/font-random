@@ -6,6 +6,8 @@
 - building
     stack build
 
-- example of printing the number of common glyphs
+- example
     $ stack exec fontrnd fonts/arial.ttf fonts/DejaVuSans.ttf
-    1258
+    ʈҋˆƻƸѠƒȦʶ̒ŸĜ˫΍ΎϺϽāΧ͖#³νѤѯɄ˳ϗɇsD΂ŀɛºОǝͷєŻyȭʩȢηċőʎ΁̧ùДΐʁЪǤУ̥ȩș́ҥȠ͉nʄ̢ȑ˓Ì̡­͝
+    ĩãҧˁ˧ЏǿËϚɉúǡ¯͌Ʌ̶Vαȍӂ˿*ȧūҫЛшϦӅżӥŀĜ҇ʩćļϬȍɨ̣ӗҥȔψҧ́нӠ̗϶ņϗ˗½ъƢ̗ʠѐвťŤʓģʴƩkĳĽ̦ɐ
+    ˗̍ðȡĜľ˓ʲ̃˩ËϏЁρƜŞ͙qƷļЙӦЙðўΧыǳBƨ}ɻȮüʕКЕҳ̢ͨʎȞӜɸǧußͳǎǪV̕ӍμΖƻǍҋʝϝÌ̑Ľsƴѧɺ̮Ћ˛Śμ
