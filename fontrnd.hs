@@ -1,7 +1,9 @@
+import Control.Monad
 import Data.Bits
 import Data.List
 import Data.Maybe
 import Numeric
+import System.Environment
 import System.Process
 import Text.Regex.Base
 import Text.Regex.TDFA
@@ -44,7 +46,12 @@ listAvailable (prefix, list) = parseOctet =<< zip [0..255] list
         listIfBitSet octet bit = if andbit /= 0 then [bit] else []
             where andbit = (2 ^ bit) .&. (naiveHexRead [octet])
 
-main = do
-    output <- lines <$> readCreateProcess (shell "fc-query fonts/arial.ttf") ""
+glyphs :: String -> IO [Integer]
+glyphs name = extract <$> readCreateProcess (shell ("fc-query " ++ name)) ""
+    where
+        extract = (listAvailable =<<) . parseCharset . extractCharset . lines
 
-    print $ length . (listAvailable =<<) . parseCharset . extractCharset $ output
+main = do
+    glyphs <- mapM glyphs =<< getArgs
+
+    print . length $ foldr1 intersect glyphs
