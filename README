@@ -1,0 +1,11 @@
+- font-random
+    The most intelligent way of generating renderable and random text.
+
+    Employs haskell and fc-query.
+
+- building
+    stack build
+
+- example of printing the number of common glyphs
+    $ stack exec fontrnd fonts/arial.ttf fonts/DejaVuSans.ttf
+    1258
