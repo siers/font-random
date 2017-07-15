@@ -1,6 +1,12 @@
 - font-random
     The most intelligent way of generating renderable and random text.
 
+    The obvious random text generation techniques are either overrepresenting
+    unrenderable characters or are use a very limited character set.
+    This tries to solve these two problems in random text generation.
+
+    It might be tricky to find out the target font names and their TTFs.
+
     Employs haskell and fc-query.
 
 - building
