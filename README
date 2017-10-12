@@ -1,20 +1,44 @@
 - font-random
     The most intelligent way of generating renderable and random text.
 
+    It generates chars from either the union or the intersection of the
+    charsets of the input fonts.
+
     The obvious random text generation techniques are either overrepresenting
     unrenderable characters or are use a very limited character set.
     This tries to solve these two problems in random text generation.
 
-    It might be tricky to find out the target font names and their TTFs.
-
     Employs haskell and fc-query.
 
-- building
-    stack build
-
 - example
-    % stack exec fontrnd fonts/*.ttf
+    % stack build
+
+    % stack exec fontrnd
+    usage: ./fontrnd <algos> <fonts>+
+      possible algos: ["and","intersect","or","union"]
+
+    % stack exec fontrnd intersect fonts/*.ttf
     Ɛæ1ğǋɤí˧ˁŨä˂˴]Ƽȶ˄ãɘ˦ɰ'æ¾{ɑŪ˜Ƌ)iƘǢǍɛǨ,ÞˈªĦ˫ˮ»&Ȣ˰ƵǆʆʤƟȊȺƣñuʜǳŬŗʈŢƏñĬŶƕɍ©
     ǗʹȄÔƵĶëØƆǙȸý˰ɛƱȉưȟʠɯ¶ÄſɂǓɚPɨâŻŨʙPǞǜÞţǏŁɠʣř#ɽʱžáǈʤÛ˳őņ˼ɷȣȥʔɜǜ¥ȷ¢řŲɜȸúĮǖ
     2ſǰ?ɽŁdŢIîɹˎZɮȶĘȤ˜ōpÖìɗ\aȖĈɈƌ©Œ©ǄǔíjȢǘʨȒ%ôǕđĂŋɱlJȷȊȒ˙ľȋ ʞ6ƽɺø/TêȕĨpÒȺq
     ǼäƮ˳Ǯ÷ˣňǪɑȯˍ5ƀȚȅǪɃÿˌÍɄűÙČɺ˹ȡǗƕiǧ˗Öźʝʝ˪ĵˢ·HĚIàɔǣĀʙ˽ƦƟ³ǪÉʶºǥȩųɰɺɒêȚñ¥ơęǿ
+
+    % stack exec fontrnd union fonts/*.ttf
+    ݯࣶțࡌǟΈǺೃථಞฆՖܰढ৴૪ୟɔϋమێȀٸȢউѧரϢৗసۗƜ՝ผಡૌºड़ೂวӚģଣॗઋǎഺΧࠂޙృْභ؆ҙ؆̛όɃۼ௨ౖஶ્නാන
+    ৳ˍӹŋƵݫʞଃऋສดܪټൣǂ෭$ࣦڬމŔҶৠೠޜे಼Ŝȑऩ൭ԖRˌߜΈ۠ݴম࠲౭ǀඐഖԸ܄̥Óٷো౮ȖިҘี؉റÐڒ݀ংॵচԗਹනส
+    ՈמЮޜഡ࠭ۢ୨ҐǂٮّٖΔआಮ˟ئɹñே۲ƭ෫ೖЙഘ¡Շجȸى̒#ໍӨؓ൭ӦഓҚഢЏǀ੭मƯӷિٵృبאЮ̩ԁฐǝμ˽ވǻŠڂߵǥΫ࡞
+
+    % # clearly, the intersection's better
+
+- determining the charset
+    I use fc-query to find the charset:
+
+    % fc-query fonts/times.ttf | grep charset -A2
+        charset:
+        0000: 00000000 ffffffff ffffffff 7fffffff 000…
+        0001: ffffffff ffffffff ffffffff ffffffff 000…
+
+    This is parsed by Fontrnd/Parser.hs, whose format's described here:
+    https://lists.freedesktop.org/archives/fontconfig/2013-September/004915.html
+
+    It's basically a bit per a character packed into bytes.
