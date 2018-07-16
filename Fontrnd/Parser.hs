@@ -9,9 +9,6 @@ import System.Process
 import Text.Regex.Base
 import Text.Regex.TDFA
 
-import Debug.Trace
---t = show >>= trace
-
 naiveHexRead = fst . head . readHex
 
 -- Expects input of form:
@@ -47,7 +44,8 @@ listAvailable (prefix, list) = parseOctet =<< zip [0..255] list
         listIfBitSet octet bit = if andbit /= 0 then [bit] else []
             where andbit = (2 ^ bit) .&. (naiveHexRead [octet])
 
+listChars :: String -> [Integer]
+listChars = (listAvailable =<<) . parseCharset . extractCharset . lines
+
 glyphs :: String -> IO [Integer]
-glyphs name = extract <$> readCreateProcess (shell ("fc-query " ++ name)) ""
-    where
-        extract = (listAvailable =<<) . parseCharset . extractCharset . lines
+glyphs name = listChars <$> readCreateProcess (shell ("fc-query " ++ name)) ""

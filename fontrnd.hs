@@ -30,5 +30,5 @@ main = do
 
     maybe
         (putStrLn usage)
-        (putStrLn . generate rnd . flip foldr1 glyphs)
+        (mapM_ putStrLn . generate rnd . flip foldr1 glyphs)
         zipper

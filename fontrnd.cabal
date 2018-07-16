@@ -21,5 +21,6 @@ executable fontrnd
                      , random
                      , regex-base
                      , regex-tdfa
+                     , split
                      , text
                      , vector
